@@ -117,7 +117,7 @@ public class MenuScreen extends javax.swing.JFrame {
     
     private void showDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDataButtonActionPerformed
         // TODO add your handling code here:
-        ShowData dataScreen = new ShowData();
+        ShowDataScreen dataScreen = new ShowDataScreen();
         dataScreen.setVisible(true);
         dataScreen.setLocationRelativeTo(null);
         this.dispose();

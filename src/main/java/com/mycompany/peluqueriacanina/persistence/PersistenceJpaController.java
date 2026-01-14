@@ -79,4 +79,23 @@ public class PersistenceJpaController {
         petJpa.create(pet);
     }
 
+    public void modifyPet(Pet pet) {
+        
+        try {
+            petJpa.edit(pet);
+        } catch (Exception ex) {
+            System.getLogger(PersistenceJpaController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    public void modifyOwner(Owner owner) {
+        try {
+            owJpa.edit(owner);
+        } catch (Exception ex) {
+            System.getLogger(PersistenceJpaController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    
+
 }

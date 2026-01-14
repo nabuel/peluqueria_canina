@@ -2,20 +2,28 @@
 package com.mycompany.peluqueriacanina.igu;
 
 import com.mycompany.peluqueriacanina.logic.Controller;
+import com.mycompany.peluqueriacanina.logic.Owner;
+import com.mycompany.peluqueriacanina.logic.Pet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
-public class RecordScreen extends javax.swing.JFrame {
+public class EditScreen extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RecordScreen.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditScreen.class.getName());
 
     
-    public RecordScreen() {
+    Controller control = null;
+    int id;
+    Pet pet;
+    
+    public EditScreen(int id) {
+        
+        control = new Controller();
         initComponents();
+        loadData(id);
     }
     
-    Controller control = new Controller();
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -23,7 +31,7 @@ public class RecordScreen extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        backMenuButton = new javax.swing.JButton();
+        backShowDataButton = new javax.swing.JButton();
         formPanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
@@ -54,13 +62,15 @@ public class RecordScreen extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("RECORD PET");
+        title.setText("EDIT PET");
 
-        backMenuButton.setText("BACK");
-        backMenuButton.addActionListener(this::backMenuButtonActionPerformed);
+        backShowDataButton.setText("BACK");
+        backShowDataButton.addActionListener(this::backShowDataButtonActionPerformed);
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nameLabel.setText("Name:");
+
+        nameTextField.addActionListener(this::nameTextFieldActionPerformed);
 
         breedLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         breedLabel.setText("Breed:");
@@ -193,8 +203,8 @@ public class RecordScreen extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(backMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(310, 310, 310)
+                        .addComponent(backShowDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(360, 360, 360)
                         .addComponent(title)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -206,11 +216,14 @@ public class RecordScreen extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(title))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(backShowDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(title)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +239,7 @@ public class RecordScreen extends javax.swing.JFrame {
         clearButton.addActionListener(this::clearButtonActionPerformed);
 
         saveButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        saveButton.setText("SAVE");
+        saveButton.setText("SAVE CHANGES");
         saveButton.addActionListener(this::saveButtonActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,8 +253,8 @@ public class RecordScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
-                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(433, 433, 433))
+                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(415, 415, 415))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,13 +270,13 @@ public class RecordScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backMenuButtonActionPerformed
+    private void backShowDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backShowDataButtonActionPerformed
         // TODO add your handling code here:
-        MenuScreen menu = new MenuScreen();
-        menu.setVisible(true);
-        menu.setLocationRelativeTo(null);
+        ShowDataScreen dataScreen = new ShowDataScreen();
+        dataScreen.setVisible(true);
+        dataScreen.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_backMenuButtonActionPerformed
+    }//GEN-LAST:event_backShowDataButtonActionPerformed
 
     private void breedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_breedTextFieldActionPerformed
         // TODO add your handling code here:
@@ -290,8 +303,14 @@ public class RecordScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String allergic = (String) allergicComboBox.getSelectedItem();
         String speAten = (String) speAtenComboBox.getSelectedItem();
-        control.save(nameTextField.getText(),breedTextField.getText(),colorTextField.getText(),
-                    allergic,speAten,nameOwTextField.getText(),phoneTextField.getText(),addressTextField.getText(),observationTextPane.getText());
+        
+        control.modifyPet(pet, nameTextField.getText(), breedTextField.getText(),colorTextField.getText(),
+                        allergic,speAten, observationTextPane.getText());
+        
+        
+        control.modifyOwner(pet.getOwner(), nameOwTextField.getText(), 
+                phoneTextField.getText(), addressTextField.getText());
+        
         
         JOptionPane optionPane = new JOptionPane("Save Correct");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -300,6 +319,11 @@ public class RecordScreen extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_nameTextFieldActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -307,7 +331,7 @@ public class RecordScreen extends javax.swing.JFrame {
     private javax.swing.JTextField addressTextField;
     private javax.swing.JComboBox<String> allergicComboBox;
     private javax.swing.JLabel allergicLabel;
-    private javax.swing.JButton backMenuButton;
+    private javax.swing.JButton backShowDataButton;
     private javax.swing.JLabel breedLabel;
     private javax.swing.JTextField breedTextField;
     private javax.swing.JButton clearButton;
@@ -330,4 +354,22 @@ public class RecordScreen extends javax.swing.JFrame {
     private javax.swing.JLabel speAtenLabel;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+
+    private void loadData(int id) {
+        this.pet = control.readPet(id);
+        
+        nameTextField.setText(pet.getName_dog());
+        breedTextField.setText(pet.getBreed());
+        colorTextField.setText(pet.getColor());
+        
+        int allergic = (pet.getAllergic().equalsIgnoreCase("no")) ? 2 : 1;
+        allergicComboBox.setSelectedIndex(allergic);
+        
+        int speAten = (pet.getSpecial_atenttion().equalsIgnoreCase("no")) ? 2:1;
+        speAtenComboBox.setSelectedIndex(speAten);
+        nameOwTextField.setText(pet.getOwner().getName());
+        phoneTextField.setText(pet.getOwner().getPhone());
+        addressTextField.setText(pet.getOwner().getAddress());
+        observationTextPane.setText(pet.getObservation());
+    }
 }

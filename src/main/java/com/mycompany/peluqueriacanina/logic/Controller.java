@@ -70,4 +70,28 @@ public class Controller {
         
         control.save(owner,pet);
     }
+
+    public void modifyPet(Pet pet, String name, String breed, String color, String allergic, String speAten, String observation) {
+        pet.setName_dog(name);
+        pet.setBreed(breed);
+        pet.setColor(color);
+        pet.setAllergic(allergic);
+        pet.setSpecial_atenttion(speAten);
+        pet.setObservation(observation);
+        
+        control.modifyPet(pet);
+    }
+
+    public void modifyOwner(Owner owner, String name, String phone, String address) {
+        
+        owner.setName(name);
+        owner.setPhone(phone);
+        owner.setAddress(address);
+        
+        control.modifyOwner(owner);
+    }
+
+
+
+    
 }

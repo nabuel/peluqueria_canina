@@ -1,4 +1,6 @@
+com\mycompany\peluqueriacanina\igu\ShowDataScreen$2.class
 com\mycompany\peluqueriacanina\persistence\exceptions\NonexistentEntityException.class
+com\mycompany\peluqueriacanina\igu\EditScreen.class
 com\mycompany\peluqueriacanina\persistence\OwnerJpaController.class
 com\mycompany\peluqueriacanina\igu\MenuScreen.class
 com\mycompany\peluqueriacanina\logic\Owner.class
@@ -7,7 +9,8 @@ com\mycompany\peluqueriacanina\logic\Pet.class
 com\mycompany\peluqueriacanina\logic\Controller.class
 com\mycompany\peluqueriacanina\persistence\exceptions\IllegalOrphanException.class
 com\mycompany\peluqueriacanina\persistence\exceptions\PreexistingEntityException.class
+com\mycompany\peluqueriacanina\igu\ShowDataScreen$1.class
 com\mycompany\peluqueriacanina\persistence\PetJpaController.class
 com\mycompany\peluqueriacanina\persistence\PersistenceJpaController.class
 com\mycompany\peluqueriacanina\PeluqueriaCanina.class
-com\mycompany\peluqueriacanina\igu\ShowData.class
+com\mycompany\peluqueriacanina\igu\ShowDataScreen.class
