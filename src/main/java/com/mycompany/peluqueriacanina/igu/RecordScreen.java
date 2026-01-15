@@ -183,7 +183,7 @@ public class RecordScreen extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\monte\\OneDrive\\Imágenes\\peluqueriaCanina.png")); // NOI18N
+        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/peluqueriaCanina.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
