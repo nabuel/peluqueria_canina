@@ -34,3 +34,12 @@ Para ejecutar este proyecto localmente, asegúrate de configurar tu base de dato
 <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/peluqueria_canina?serverTimezone=UTC"/>
 <property name="javax.persistence.jdbc.user" value="root"/>
 <property name="javax.persistence.jdbc.password" value=""/>
+```
+## 🐋 Instalación y Ejecución Rápida
+
+Sigue estos pasos para ejecutar el proyecto localmente sin necesidad de instalar MySQL de forma manual:
+
+1. **Prerrequisitos:** Asegúrate de tener instalado [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. **Levantar la Base de Datos:** Abre una terminal en la carpeta raíz del proyecto y ejecuta:
+   ```bash
+   docker-compose up -d
