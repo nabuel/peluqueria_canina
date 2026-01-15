@@ -2,6 +2,8 @@
 package com.mycompany.peluqueriacanina.igu;
 
 import com.mycompany.peluqueriacanina.logic.Controller;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -290,14 +292,17 @@ public class RecordScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String allergic = (String) allergicComboBox.getSelectedItem();
         String speAten = (String) speAtenComboBox.getSelectedItem();
-        control.save(nameTextField.getText(),breedTextField.getText(),colorTextField.getText(),
-                    allergic,speAten,nameOwTextField.getText(),phoneTextField.getText(),addressTextField.getText(),observationTextPane.getText());
         
-        JOptionPane optionPane = new JOptionPane("Save Correct");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Saved Correctly.");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+        if (verifyTextsCompleted()){
+            
+            control.save(nameTextField.getText(),breedTextField.getText(),colorTextField.getText(),
+            allergic,speAten,nameOwTextField.getText(),phoneTextField.getText(),addressTextField.getText(),observationTextPane.getText());
+            
+            showMessage("Save Completed","Saved Correctly.","information");
+        }else{
+            
+            showMessage("Save Error", "Complete all text fields.", "error");
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     
@@ -330,4 +335,45 @@ public class RecordScreen extends javax.swing.JFrame {
     private javax.swing.JLabel speAtenLabel;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+
+    private boolean verifyTextsCompleted() {
+        List<String> textFields = getAllTextField();
+        for (String text: textFields){
+            if (text.isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private List<String> getAllTextField() {
+        List<String> textFields = new ArrayList();
+        
+        textFields.add(nameTextField.getText());
+        textFields.add(breedTextField.getText());
+        textFields.add(colorTextField.getText());
+        String allergic = (String) allergicComboBox.getSelectedItem();
+        textFields.add(allergic);
+        String speAten = (String) speAtenComboBox.getSelectedItem();
+        textFields.add(speAten);
+        textFields.add(nameOwTextField.getText());
+        textFields.add(phoneTextField.getText());
+        textFields.add(addressTextField.getText());
+        textFields.add(observationTextPane.getText());
+        
+        return textFields;
+    }
+
+    public void showMessage(String title, String message, String type){
+        JOptionPane optionPane = new JOptionPane(message);
+        if (type.equalsIgnoreCase("information")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (type.equalsIgnoreCase("error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true); 
+    }
+    
 }

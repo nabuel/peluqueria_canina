@@ -220,7 +220,7 @@ public class ShowDataScreen extends javax.swing.JFrame {
         if (type.equalsIgnoreCase("information")){
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         } else if (type.equalsIgnoreCase("error")){
-            optionPane.setMessageType(JOptionPane.ERROR);
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
         JDialog dialog = optionPane.createDialog(title);
         dialog.setAlwaysOnTop(true);

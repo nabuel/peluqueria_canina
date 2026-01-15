@@ -2,8 +2,9 @@
 package com.mycompany.peluqueriacanina.igu;
 
 import com.mycompany.peluqueriacanina.logic.Controller;
-import com.mycompany.peluqueriacanina.logic.Owner;
 import com.mycompany.peluqueriacanina.logic.Pet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -14,7 +15,6 @@ public class EditScreen extends javax.swing.JFrame {
 
     
     Controller control = null;
-    int id;
     Pet pet;
     
     public EditScreen(int id) {
@@ -300,27 +300,25 @@ public class EditScreen extends javax.swing.JFrame {
         String allergic = (String) allergicComboBox.getSelectedItem();
         String speAten = (String) speAtenComboBox.getSelectedItem();
         
-        control.modifyPet(pet, nameTextField.getText(), breedTextField.getText(),colorTextField.getText(),
-                        allergic,speAten, observationTextPane.getText());
+        if (verifyTextsCompleted()){
         
-        
-        control.modifyOwner(pet.getOwner(), nameOwTextField.getText(), 
-                phoneTextField.getText(), addressTextField.getText());
-        
-        
-        JOptionPane optionPane = new JOptionPane("Save Correct");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Saved Correctly.");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+            control.modifyPet(pet, nameTextField.getText(), breedTextField.getText(),colorTextField.getText(),
+                            allergic,speAten, observationTextPane.getText());
+
+
+            control.modifyOwner(pet.getOwner(), nameOwTextField.getText(), 
+                    phoneTextField.getText(), addressTextField.getText());
+            
+            showMessage("Edit completed","Edited Correctly.","information");
+        }else{
+            showMessage("Edit Error", "Complete all text fields.", "error");
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_nameTextFieldActionPerformed
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
@@ -367,5 +365,45 @@ public class EditScreen extends javax.swing.JFrame {
         phoneTextField.setText(pet.getOwner().getPhone());
         addressTextField.setText(pet.getOwner().getAddress());
         observationTextPane.setText(pet.getObservation());
+    }
+    
+    private boolean verifyTextsCompleted() {
+        List<String> textFields = getAllTextField();
+        for (String text: textFields){
+            if (text.isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private List<String> getAllTextField() {
+        List<String> textFields = new ArrayList();
+        
+        textFields.add(nameTextField.getText());
+        textFields.add(breedTextField.getText());
+        textFields.add(colorTextField.getText());
+        String allergic = (String) allergicComboBox.getSelectedItem();
+        textFields.add(allergic);
+        String speAten = (String) speAtenComboBox.getSelectedItem();
+        textFields.add(speAten);
+        textFields.add(nameOwTextField.getText());
+        textFields.add(phoneTextField.getText());
+        textFields.add(addressTextField.getText());
+        textFields.add(observationTextPane.getText());
+        
+        return textFields;
+    }
+    
+    public void showMessage(String title, String message, String type){
+        JOptionPane optionPane = new JOptionPane(message);
+        if (type.equalsIgnoreCase("information")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (type.equalsIgnoreCase("error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true); 
     }
 }
